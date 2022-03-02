@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 1</title>
+</head>
+
+<body>
+    <div>
+        <div style="width: 40%;margin: 0 auto">
+            <h2>
+                Escríbenos !!!
+            </h2>
+            <div class="resultado" style="color:green;font-style: italic">
+            </div>
+            <form id="formulario">
+                <div>
+                    <div style="display: flex;flex-direction: column;">
+                        <label>
+                            Nombre completo
+                        </label>
+                        <input id="nombre" type="text">
+                        <p class="errorNombre" style="color:red;font-style: italic;"></p>
+                    </div>
+                    <div style="display: flex;flex-direction: column;">
+                        <label>
+                            Asunto
+                        </label>
+                        <input id="asunto" type="text">
+                        <p class="errorAsunto" style="color:red;font-style: italic;"></p>
+                    </div>
+                </div>
+                <div style="display: flex;flex-direction: column;">
+                    <label>
+                        Mensaje
+                    </label>
+                    <textarea id="mensaje"></textarea>
+                    <p class="errorMensaje" style="color:red;font-style: italic;"></p>
+                </div>
+                <div>
+                    <button id="botton" type="submit" onclick="validarFormulario();">
+                        Envíar mensaje
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        var formulario = document.getElementById("formulario");
+        formulario.addEventListener('submit', validarFormulario);
+
+        function validarFormulario(event) {
+            event.preventDefault();
+
+            let nombre = document.getElementById("nombre").value;
+            let asunto = document.getElementById("asunto").value;
+            let mensaje = document.getElementById("mensaje").value;
+
+            let validacionSoloLetras = true;
+            let validacionIngresos = /[a-zA-Z]/gim;
+
+            if (nombre == "") {
+                document.querySelector(".errorNombre").innerHTML = "Debes ingresar un nombre.";
+                document.querySelector(".errorAsunto").innerHTML = "";
+                document.querySelector(".errorMensaje").innerHTML = "";
+            } else if (asunto == "") {
+                document.querySelector(".errorAsunto").innerHTML = "Debes ingresar un asunto.";
+                document.querySelector(".errorNombre").innerHTML = "";
+                document.querySelector(".errorMensaje").innerHTML = "";
+            } else if (mensaje == "") {
+                document.querySelector(".errorMensaje").innerHTML = "Debes ingresar un mensaje.";
+                document.querySelector(".errorNombre").innerHTML = "";
+                document.querySelector(".errorAsunto").innerHTML = "";
+            } else if (validacionIngresos.test(nombre) == false) {
+                document.querySelector(".errorNombre").innerHTML = "Ingresa un nombre válido (SOLO LETRAS).";
+                validacionCorrecta = false;
+                document.querySelector(".errorAsunto").innerHTML = "";
+                document.querySelector(".errorMensaje").innerHTML = "";
+            } else if (validacionIngresos.test(asunto) == false) {
+                document.querySelector(".errorAsunto").innerHTML = "Ingresa un asunto válido (SOLO LETRAS).";
+                validacionCorrecta = false;
+                document.querySelector(".errorNombre").innerHTML = "";
+                document.querySelector(".errorMensaje").innerHTML = "";
+            } else if (validacionIngresos.test(mensaje) == false) {
+                document.querySelector(".errorMensaje").innerHTML = "Ingrese un mensaje válido (SOLO LETRAS).";
+                validacionCorrecta = false;
+                document.querySelector(".errorNombre").innerHTML = "";
+                document.querySelector(".errorAsunto").innerHTML = "";
+            } else {
+                document.querySelector(".resultado").innerHTML = "¡Datos ingresados correctamente!";
+                document.querySelector(".errorNombre").innerHTML = "";
+                document.querySelector(".errorAsunto").innerHTML = "";
+                document.querySelector(".errorMensaje").innerHTML = "";
+                document.getElementById("nombre").value = "";
+                document.getElementById("asunto").value = "";
+                document.getElementById("mensaje").value = "";
+            };
+        };
+    </script>
+</body>
+
+</html>
